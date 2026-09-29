@@ -1,0 +1,7 @@
+healthcare_marts:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: healthcare_marts.duckdb
+      threads: 4

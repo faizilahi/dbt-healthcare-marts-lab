@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: stg_claim_lines
+    description: Claim lines with null-safe encounter_id (no UNKNOWN sentinel).
+    columns:
+      - name: claim_line_id
+        tests:
+          - unique
+          - not_null
+      - name: paid_amount
+        tests:
+          - not_null
+  - name: stg_encounters
+    columns:
+      - name: encounter_id
+        tests:
+          - unique
+          - not_null

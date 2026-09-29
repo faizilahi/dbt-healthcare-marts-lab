@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: dim_encounter
+    columns:
+      - name: encounter_id
+        tests:
+          - unique
+          - not_null
+
+  - name: fct_claim_lines
+    columns:
+      - name: claim_line_id
+        tests:
+          - unique
+          - not_null
+      - name: encounter_id
+        tests:
+          - relationships:
+              to: ref('dim_encounter')
+              field: encounter_id
+              config:
+                where: "encounter_id is not null"
+      - name: provider_id
+        tests:
+          - relationships:
+              to: ref('dim_provider')
+              field: provider_id
+
+  - name: mart_paid_by_encounter
+    columns:
+      - name: encounter_id
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: ref('dim_encounter')
+              field: encounter_id

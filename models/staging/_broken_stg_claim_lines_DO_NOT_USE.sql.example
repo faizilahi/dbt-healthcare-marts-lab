@@ -1,0 +1,12 @@
+-- HISTORICAL (broken) staging pattern kept as .example — do not enable
+-- coalesce(encounter_id, 'UNKNOWN') invented a dimension key that dim_encounter
+-- never contained, which failed relationships and inflated marts.
+select
+    claim_line_id,
+    coalesce(nullif(trim(encounter_id), ''), 'UNKNOWN') as encounter_id,
+    provider_id,
+    service_date,
+    allowed_amount,
+    paid_amount,
+    cpt_code
+from {{ ref('raw_claim_lines') }}
